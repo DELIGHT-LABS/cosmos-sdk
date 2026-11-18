@@ -1,10 +1,12 @@
 queue_rules:
-  - name: default
+  - name: downstream patches
     queue_conditions:
-      - "#approved-reviews-by>1"
-      - base=main
-      - label=A:automerge
+      - "#approved-reviews-by >= 1"
+      - "base ~= ^(main-(delight|xpla)|release/v0[.][0-9]+[.]x-xpla)$"
+      - "label = automerge"
+      - "-label = kind/upstream-sync"
     merge_conditions:
+<<<<<<< HEAD
       - "#approved-reviews-by>1"
     commit_message_template: |
       {{ title }} (#{{ number }})
@@ -56,3 +58,63 @@ pull_request_rules:
     conditions: []
     actions:
       queue:
+=======
+      - "#approved-reviews-by >= 1"
+    merge_method: squash
+    commit_message_format:
+      title: pr-title
+      body: pr-body
+
+  - name: upstream and layer sync
+    queue_conditions:
+      - "#approved-reviews-by >= 1"
+      - "base ~= ^(main-(delight|xpla)|release/v0[.][0-9]+[.]x-xpla)$"
+      - "label = automerge"
+      - "label = kind/upstream-sync"
+    merge_conditions:
+      - "#approved-reviews-by >= 1"
+    merge_method: merge
+    commit_message_format:
+      title: pr-title
+      body: pr-body
+
+pull_request_rules:
+  - name: queue approved automerge PRs
+    conditions:
+      - "#approved-reviews-by >= 1"
+      - "base ~= ^(main-(delight|xpla)|release/v0[.][0-9]+[.]x-xpla)$"
+      - "label = automerge"
+    actions:
+      queue:
+
+  - name: sync merged main-delight PRs to main-xpla
+    conditions:
+      - "base = main-delight"
+      - merged
+      - "-mergify-configuration-changed"
+    actions:
+      backport:
+        branches:
+          - main-xpla
+        labels:
+          - kind/upstream-sync
+          - automerge
+        title: "{{ title }} (sync #{{ number }} to {{ destination_branch }})"
+        body: |
+          {{ body }}
+
+          Automatic sync of #{{ number }} from `main-delight` by Mergify.
+
+          {{ cherry_picked_commits }}
+
+  - name: backport XPLA patches to v0.53.x
+    conditions:
+      - "base = main-xpla"
+      - "label = backport/0.53.x"
+    actions:
+      backport:
+        branches:
+          - release/v0.53.x-xpla
+        labels:
+          - automerge
+>>>>>>> 4ddca5d (ci: configure DELIGHT merge queues and XPLA backports)
