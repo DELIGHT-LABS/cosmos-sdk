@@ -1,11 +1,20 @@
 name: Build SimApp
 on:
   pull_request:
+    branches:
+      - main-delight
+      - main-xpla
+      - "release/v0.*.x-xpla"
   merge_group:
+    branches:
+      - main-delight
+      - main-xpla
+      - "release/v0.*.x-xpla"
   push:
     branches:
-      - main
-      - release/**
+      - main-delight
+      - main-xpla
+      - "release/v0.*.x-xpla"
 permissions:
   contents: read
 
@@ -15,7 +24,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: depot-ubuntu-22.04-4
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         go-arch: ["amd64", "arm64"] # drop 32 bit support for now (and maybe forever)
@@ -53,7 +62,7 @@ jobs:
         run: GOARCH=${{ matrix.go-arch }} make confix
 
   build-poa:
-    runs-on: depot-ubuntu-22.04-4
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-go@v7
