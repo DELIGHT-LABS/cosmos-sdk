@@ -1,11 +1,20 @@
 name: Build SimApp
 on:
   pull_request:
+    branches:
+      - main-delight
+      - main-xpla
+      - "release/v0.*.x-xpla"
   merge_group:
+    branches:
+      - main-delight
+      - main-xpla
+      - "release/v0.*.x-xpla"
   push:
     branches:
-      - main
-      - release/**
+      - main-delight
+      - main-xpla
+      - "release/v0.*.x-xpla"
 permissions:
   contents: read
 
@@ -15,7 +24,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: depot-ubuntu-22.04-4
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         go-arch: ["amd64", "arm64"] # drop 32 bit support for now (and maybe forever)
@@ -52,3 +61,35 @@ jobs:
         run: GOARCH=${{ matrix.go-arch }} make cosmovisor
       - name: Build Confix
         run: GOARCH=${{ matrix.go-arch }} make confix
+<<<<<<< HEAD
+=======
+
+  build-poa:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: "go.mod"
+          cache: true
+          cache-dependency-path: enterprise/poa/go.sum
+      - uses: technote-space/get-diff-action@v6.1.2
+        id: git_diff
+        with:
+          PATTERNS: |
+            enterprise/poa/**/*.go
+            enterprise/poa/go.mod
+            enterprise/poa/go.sum
+            enterprise/poa/Makefile
+      - name: Build POA
+        if: env.GIT_DIFF
+        run: |
+          cd enterprise/poa
+          make build
+      - name: Upload build artifact
+        if: env.GIT_DIFF
+        uses: actions/upload-artifact@v4
+        with:
+          name: poa-simd
+          path: enterprise/poa/build/simd
+>>>>>>> 588ff5f (ci: configure downstream workflows)
