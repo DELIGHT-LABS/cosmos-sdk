@@ -23,36 +23,51 @@ jobs:
       - name: "Setup Go"
         uses: actions/setup-go@v5
         with:
-<<<<<<< HEAD
-          go-version: "1.24"
-          check-latest: true
-      - name: "Dependency Review"
-        uses: actions/dependency-review-action@v4
-        with:
-          base-ref: ${{ github.event.pull_request.base.sha || 'main' }}
-          head-ref: ${{ github.event.pull_request.head.sha || github.ref }}
-          fail-on-severity: high
-=======
           go-version-file: "go.mod"
->>>>>>> 588ff5f (ci: configure downstream workflows)
       - name: "Dependency audit"
         run: ./scripts/dep-assert.sh
       - name: "Go vulnerability check"
         id: govuln
         run: |
-          # Run the vulnerability check and capture its output (ignoring non-zero exit codes)
-          make vulncheck 2>&1 | tee govulncheck-output.txt || true
+          make vulncheck-install
+
+          scanner_status=0
+          ./build/govulncheck ./... > govulncheck-output.txt 2>&1 || scanner_status=$?
+          cat govulncheck-output.txt
+
+          case "$scanner_status" in
+            0)
+              echo "No vulnerabilities found."
+              exit 0
+              ;;
+            3)
+              # Only a completed scan with findings may use the exceptions below.
+              ;;
+            *)
+              echo "govulncheck failed with exit code $scanner_status."
+              exit "$scanner_status"
+              ;;
+          esac
 
           # Extract vulnerability identifiers from the output (e.g., GO-2025-3443)
-          vulnerabilities=$(grep -o 'GO-[0-9]\{4\}-[0-9]\+' govulncheck-output.txt | sort | uniq)
+          vulnerabilities=$(grep -o 'GO-[0-9]\{4\}-[0-9]\+' govulncheck-output.txt | sort -u || true)
+          if [ -z "$vulnerabilities" ]; then
+            echo "govulncheck reported findings without vulnerability identifiers."
+            exit 1
+          fi
           echo "Detected vulnerabilities: $vulnerabilities"
 
-          # Check if any vulnerability other than GO-2025-3443 exists
+          # GO-2026-5932 has no fixed release. The SDK uses deprecated OpenPGP
+          # armor in crypto/armor.go for key export/import.
+          # Follow the exception introduced in upstream PR #26580.
+          IGNORED_VULNS="GO-2025-3443 GO-2026-5932"
+
+          # Reject every vulnerability outside the explicit exceptions.
           for vuln in $vulnerabilities; do
-            if [ "$vuln" != "GO-2025-3443" ]; then
+            if ! echo "$IGNORED_VULNS" | grep -qw "$vuln"; then
               echo "Found vulnerability $vuln, failing..."
               exit 1
             fi
           done
 
-          echo "Only known vulnerability (GO-2025-3443) present. Continuing."
+          echo "Only explicitly accepted vulnerabilities present. Continuing."

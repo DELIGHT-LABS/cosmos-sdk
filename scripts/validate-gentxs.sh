@@ -12,7 +12,7 @@ CHAIN_ID= # ex: testnet-1
 DENOM= # ex: ustake
 GH_URL= # ex: https://github.com/cosmos/cosmos-sdk
 BINARY_VERSION= # ex :v0.44.0
-GO_VERSION=1.17
+GO_VERSION=1.26.11
 PRELAUNCH_GENESIS_URL= # ex: https://raw.githubusercontent.com/cosmos/cosmos-sdk/master/$CHAIN_ID/genesis-prelaunch.json
 GENTXS_DIR= # ex: $GOPATH/github.com/cosmos/mainnet/$CHAIN_ID/gentxs"
 echo
@@ -30,7 +30,7 @@ if [[ -z "${DENOM}" ]]; then
   exit 0
 fi
 if [[ -z "${GO_VERSION}" ]]; then
-  echo "GO_VERSION in not set, required. Ex: 1.15.2, 1.16.6 etc."
+  echo "GO_VERSION in not set, required. Ex: 1.26.11."
   exit 0
 fi
 if [[ -z "${CHAIN_ID}" ]]; then
