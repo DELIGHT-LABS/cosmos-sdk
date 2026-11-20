@@ -64,3 +64,8 @@ func (h GovHooks) AfterProposalFailedMinDeposit(_ context.Context, _ uint64) err
 func (h GovHooks) AfterProposalVotingPeriodEnded(_ context.Context, _ uint64) error {
 	return nil
 }
+
+// AfterProposalCanceled is a no-op for the PoA module.
+func (h GovHooks) AfterProposalCanceled(_ context.Context, _ uint64) error {
+	return nil
+}
