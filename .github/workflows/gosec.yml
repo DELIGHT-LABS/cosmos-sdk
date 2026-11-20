@@ -1,13 +1,19 @@
 name: Run Gosec
 on:
   pull_request:
+    branches:
+      - main-delight
+      - main-xpla
+      - "release/v0.*.x-xpla"
     paths:
       - "**/*.go"
       - "go.mod"
       - "go.sum"
   push:
     branches:
-      - main
+      - main-delight
+      - main-xpla
+      - "release/v0.*.x-xpla"
     paths:
       - "**/*.go"
       - "go.mod"
@@ -18,7 +24,7 @@ jobs:
     permissions:
       security-events: write
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       GO111MODULE: on
     steps:
