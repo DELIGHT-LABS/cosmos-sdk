@@ -29,8 +29,8 @@ jobs:
       matrix:
         go-arch: ["amd64", "arm64"] # drop 32 bit support for now (and maybe forever)
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
       - name: install aarch64-gcc

@@ -29,10 +29,10 @@ jobs:
     outputs:
       git_diff: ${{ steps.git_diff.outputs.diff }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-tags: true
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
@@ -55,7 +55,14 @@ jobs:
     if: needs.setup.outputs.git_diff
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
+        with:
+          fetch-tags: true
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: "go.mod"
+          cache: true
+          cache-dependency-path: ./go.sum
       - name: Run system tests
         run: |
           make test-system
@@ -65,7 +72,14 @@ jobs:
     if: needs.setup.outputs.git_diff
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
+        with:
+          fetch-tags: true
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: "go.mod"
+          cache: true
+          cache-dependency-path: ./go.sum
       - name: Run legacy system tests
         run: |
           COSMOS_BUILD_OPTIONS=legacy make test-system

@@ -10,6 +10,7 @@ Their contents are unchanged from upstream.
 | `proto-registry.yml` | Upstream protobuf registry publishing definition, already commented out upstream. |
 | `sims.yml`, `sims-nightly.yml`, `sims-047.yml`, `sims-050.yml` | Scheduled or release-triggered simulation campaigns. |
 | `clean-action-artifacts.yml` | Scheduled artifact deletion. |
+| `build-simd-nightlies.yml` | Build and publish upstream nightly binaries to GitHub Pages using Depot. |
 
 The fork does not currently operate these publishing and scheduled services.
 PR builds, tests, lint, protobuf checks, and dependency checks remain in

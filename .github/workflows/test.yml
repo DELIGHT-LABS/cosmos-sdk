@@ -28,8 +28,8 @@ jobs:
   split-test-files:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
       - name: Create a file with all core Cosmos SDK pkgs
@@ -61,8 +61,8 @@ jobs:
       matrix:
         part: ["00", "01", "02", "03"]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
@@ -94,8 +94,8 @@ jobs:
   test-integration:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
@@ -124,8 +124,8 @@ jobs:
   test-e2e:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
@@ -155,7 +155,7 @@ jobs:
     runs-on: ubuntu-22.04
     needs: [tests, test-integration, test-e2e]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: technote-space/get-diff-action@v6.1.2
         id: git_diff
         with:
@@ -194,8 +194,8 @@ jobs:
   test-sim-nondeterminism:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
@@ -226,8 +226,8 @@ jobs:
   test-clientv2:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
@@ -248,8 +248,8 @@ jobs:
   test-core:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
@@ -270,8 +270,8 @@ jobs:
   test-depinject:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           check-latest: false
@@ -293,8 +293,8 @@ jobs:
   test-errors:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
@@ -315,8 +315,8 @@ jobs:
   test-math:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
@@ -337,8 +337,8 @@ jobs:
   test-schema:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
@@ -359,8 +359,8 @@ jobs:
   test-collections:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
@@ -381,8 +381,8 @@ jobs:
   test-cosmovisor:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
@@ -403,8 +403,8 @@ jobs:
   test-confix:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
@@ -425,8 +425,8 @@ jobs:
   test-store:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
@@ -448,8 +448,8 @@ jobs:
   test-log:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
@@ -477,8 +477,8 @@ jobs:
   test-x-tx:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
@@ -499,8 +499,8 @@ jobs:
   test-x-nft:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
@@ -521,8 +521,8 @@ jobs:
   test-x-circuit:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
@@ -543,8 +543,8 @@ jobs:
   test-x-feegrant:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
@@ -565,8 +565,8 @@ jobs:
   test-x-evidence:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
@@ -587,8 +587,8 @@ jobs:
   test-x-upgrade:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
@@ -609,8 +609,8 @@ jobs:
   test-tools-benchmark:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache: true
