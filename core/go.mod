@@ -1,6 +1,6 @@
 module cosmossdk.io/core
 
-go 1.23.0
+go 1.26.11
 
 require (
 	cosmossdk.io/api v0.9.2
@@ -8,8 +8,8 @@ require (
 	cosmossdk.io/math v1.5.3
 	github.com/cosmos/cosmos-db v1.1.1
 	github.com/stretchr/testify v1.10.0
-	google.golang.org/grpc v1.72.2
-	google.golang.org/protobuf v1.36.6
+	google.golang.org/grpc v1.84.0
+	google.golang.org/protobuf v1.36.11
 )
 
 require (
@@ -31,7 +31,7 @@ require (
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/btree v1.1.3 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/klauspost/compress v1.18.0 // indirect
+	github.com/klauspost/compress v1.20.2 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/linxGnu/grocksdb v1.8.12 // indirect
@@ -48,11 +48,11 @@ require (
 	github.com/tendermint/go-amino v0.16.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.2 // indirect
 	golang.org/x/exp v0.0.0-20240404231335-c0f41cb1a7a0 // indirect
-	golang.org/x/net v0.40.0 // indirect
-	golang.org/x/sys v0.33.0 // indirect
-	golang.org/x/text v0.25.0 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20250324211829-b45e905df463 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20250422160041-2d3770c4ea7f // indirect
+	golang.org/x/net v0.62.0 // indirect
+	golang.org/x/sys v0.49.0 // indirect
+	golang.org/x/text v0.43.0 // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20260706201446-f0a921348800 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20260706201446-f0a921348800 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	sigs.k8s.io/yaml v1.6.0 // indirect
 )

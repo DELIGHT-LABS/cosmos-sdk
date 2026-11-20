@@ -142,14 +142,18 @@ hubl:
 
 #? mocks: Generate mock file
 mocks: $(MOCKS_DIR)
-	@go install go.uber.org/mock/mockgen@v0.5.0
+	@go install go.uber.org/mock/mockgen@v0.6.0
 	sh ./scripts/mockgen.sh
 .PHONY: mocks
 
 
-vulncheck: $(BUILDDIR)/
+vulncheck-install: $(BUILDDIR)/
 	GOBIN=$(BUILDDIR) go install golang.org/x/vuln/cmd/govulncheck@latest
+
+vulncheck: vulncheck-install
 	$(BUILDDIR)/govulncheck ./...
+
+.PHONY: vulncheck vulncheck-install
 
 $(MOCKS_DIR):
 	mkdir -p $(MOCKS_DIR)
