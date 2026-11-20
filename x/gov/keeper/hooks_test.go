@@ -136,7 +136,7 @@ func TestCancelProposalHook(t *testing.T) {
 			{name: "voting", voting: true},
 		} {
 			t.Run(tc.name, func(t *testing.T) {
-				k, _, _, _, _, _, _, ctx := setupGovKeeper(t)
+				k, _, _, _, _, _, ctx := setupGovKeeper(t)
 				proposer := sdk.AccAddress("proposer____________")
 				proposal, err := k.SubmitProposal(ctx, TestProposal, "", "title", "summary", proposer, false)
 				require.NoError(t, err)
@@ -169,7 +169,7 @@ func TestCancelProposalHook(t *testing.T) {
 	})
 
 	t.Run("hook_error", func(t *testing.T) {
-		k, _, _, _, _, _, _, ctx := setupGovKeeper(t)
+		k, _, _, _, _, _, ctx := setupGovKeeper(t)
 		proposer := sdk.AccAddress("proposer____________")
 		proposal, err := k.SubmitProposal(ctx, TestProposal, "", "title", "summary", proposer, false)
 		require.NoError(t, err)
