@@ -179,6 +179,10 @@ func (k Keeper) CancelProposal(ctx context.Context, proposalID uint64, proposer 
 		}
 	}
 
+	if err := k.Hooks().AfterProposalCanceled(ctx, proposal.Id); err != nil {
+		return err
+	}
+
 	err = k.DeleteProposal(ctx, proposal.Id)
 	if err != nil {
 		return err
