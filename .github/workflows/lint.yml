@@ -2,23 +2,31 @@ name: Lint
 on:
   push:
     branches:
-      - main
-      - release/**
+      - main-delight
+      - main-xpla
+      - "release/v0.*.x-xpla"
   pull_request:
+    branches:
+      - main-delight
+      - main-xpla
+      - "release/v0.*.x-xpla"
   merge_group:
+    branches:
+      - main-delight
+      - main-xpla
+      - "release/v0.*.x-xpla"
 permissions:
   contents: read
 
 jobs:
   golangci:
     name: golangci-lint
-    runs-on: depot-ubuntu-22.04-4
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-go@v6
         with:
-          go-version: "1.25"
-          check-latest: true
+          go-version-file: "go.mod"
       - uses: technote-space/get-diff-action@v6.1.2
         id: git_diff
         with:

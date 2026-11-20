@@ -1,10 +1,20 @@
 name: "Checks dependencies and mocks generation"
 on:
   merge_group:
+    branches:
+      - main-delight
+      - main-xpla
+      - "release/v0.*.x-xpla"
   pull_request:
+    branches:
+      - main-delight
+      - main-xpla
+      - "release/v0.*.x-xpla"
   push:
     branches:
-      - main
+      - main-delight
+      - main-xpla
+      - "release/v0.*.x-xpla"
 
 concurrency:
   group: ci-${{ github.ref }}-pr-go-mod-tidy-mocks
@@ -13,15 +23,14 @@ concurrency:
 jobs:
   go-mod-tidy:
     name: Check go mod tidy
-    runs-on: depot-ubuntu-22.04-4
+    runs-on: ubuntu-22.04
     steps:
       - name: Check out code
         uses: actions/checkout@v6
       - name: Set up Go
         uses: actions/setup-go@v6
         with:
-          go-version: "1.23"
-          check-latest: true
+          go-version-file: "go.mod"
       - name: Run go mod tidy
         run: ./scripts/go-mod-tidy-all.sh
       - name: Check for diffs
@@ -33,15 +42,14 @@ jobs:
 
   generate-mocks:
     name: Check up to date mocks
-    runs-on: depot-ubuntu-22.04-4
+    runs-on: ubuntu-22.04
     steps:
       - name: Check out code
         uses: actions/checkout@v6
       - name: Set up Go
         uses: actions/setup-go@v6
         with:
-          go-version: "1.23"
-          check-latest: true
+          go-version-file: "go.mod"
       - name: Generate mocks
         run: make mocks
       - name: Check for diffs
