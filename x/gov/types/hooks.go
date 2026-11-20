@@ -56,3 +56,11 @@ func (h MultiGovHooks) AfterProposalVotingPeriodEnded(ctx context.Context, propo
 	}
 	return errs
 }
+
+func (h MultiGovHooks) AfterProposalCanceled(ctx context.Context, proposalID uint64) error {
+	var errs error
+	for i := range h {
+		errs = errors.Join(errs, h[i].AfterProposalCanceled(ctx, proposalID))
+	}
+	return errs
+}
